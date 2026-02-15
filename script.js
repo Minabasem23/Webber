@@ -1,40 +1,55 @@
-// تعريف الخيارات الخاصة بالخدمة
-self.options = {
-    "domain": "3nbf4.com", // النطاق
-    "zoneId": 10591415 // ID الخاص بالمنطقة
-};
+// استرجاع المشروع من localStorage
+let project = JSON.parse(localStorage.getItem("project") || '{"nodes":[],"files":{}}');
 
-// متغير إضافي يمكن استخدامه للـ Logic الخاص بك
-self.lary = "";
+// تحديث الـ Preview والـ TextArea
+function updatePreviewAndEditor() {
+  let html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Preview</title></head><body>`;
 
-// تحميل السكربت الخارجي
-importScripts('https://3nbf4.com/act/files/service-worker.min.js?r=sw');
+  project.nodes.forEach(n => {
+    if (n.type === "div") {
+      html += `<div id="node_${n.id}" style="position:absolute;left:${n.x}px;top:${n.y}px;width:${n.sx * 100}px;height:${n.sy * 100}px;background:${n.color}"></div>`;
+    }
+    if (n.type === "button") {
+      html += `<button id="node_${n.id}" style="position:absolute;left:${n.x}px;top:${n.y}px;width:${n.sx * 100}px;height:${n.sy * 40}px;background:${n.color};color:white;font-size:${n.fontSize}px">${n.text}</button>`;
+    }
+  });
 
-// التأكد من أن الخدمة تم تحميلها بشكل صحيح
-self.addEventListener('install', event => {
-    console.log('Service Worker installed');
-    event.waitUntil(
-        caches.open('my-cache').then(cache => {
-            return cache.addAll([
-                '/',
-                '/index.html',
-                '/style.css',
-                '/script.js',
-                // أضف أي ملفات أخرى تحتاجها هنا
-            ]);
-        })
-    );
-});
+  html += "</body></html>";
 
-// تفعيل السرفيس ووركر
-self.addEventListener('activate', event => {
-    console.log('Service Worker activated');
-    return self.clients.claim();  // التأكد من أن السرفيس ووركر يدير جميع الطلبات
-});
+  // تحديث الـ Preview iframe
+  const previewFrame = document.getElementById("view");
+  previewFrame.srcdoc = html;
+}
 
-// التعامل مع الطلبات الواردة
-self.addEventListener('fetch', event => {
-    console.log('Fetch event for: ', event.request.url);
-    // يمكنك تخصيص كيفية معالجة الطلبات، مثل تخصيص الإعلانات أو تقديم تخزين البيانات
-    event.respondWith(fetch(event.request));  // إرجاع الاستجابة الطبيعية للطلب
-});
+// فتح نافذة الـ Support
+function showSupportModal() {
+  const modal = document.getElementById("supportModal");
+  modal.style.display = "block";
+
+  // بعد 30 ثانية نغلق الـ Modal و نرجع للصفحة الرئيسية
+  setTimeout(() => {
+    closeSupportModal();
+  }, 30000); // بعد 30 ثانية
+}
+
+// إغلاق نافذة الـ Support
+function closeSupportModal() {
+  const modal = document.getElementById("supportModal");
+  modal.style.display = "none";
+}
+
+// وظيفة حفظ المشروع
+function saveProject() {
+  localStorage.setItem("project", JSON.stringify(project));
+  updateFooterTime();  // تحديث الوقت في Footer
+}
+
+// تحديث الوقت في Footer
+function updateFooterTime() {
+  const now = new Date();
+  const footer = document.getElementById("footer");
+  footer.innerText = `Saved Time: ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()} @minabasem`;
+}
+
+// تحديث الـ Preview و الـ Text Area
+updatePreviewAndEditor();

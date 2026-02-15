@@ -1,4 +1,3 @@
-/* General body styles */
 body {
   margin: 0;
   font-family: sans-serif;
@@ -9,13 +8,11 @@ body {
   height: 100vh;
 }
 
-/* Top bar with Support Button */
 #topBar {
   display: flex;
   justify-content: space-between;
   padding: 10px;
   background: #222;
-  color: white;
 }
 
 button {
@@ -25,21 +22,12 @@ button {
   padding: 6px 12px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 14px;
 }
 
-button:hover {
-  background: #1e6cd2;
-}
+button:hover { background: #1e6cd2; }
 
-/* Main Section (Flexbox Layout) */
-#main {
-  display: flex;
-  flex-grow: 1;
-  height: calc(100vh - 50px); /* Adjusted height to leave space for the top bar */
-}
+#main { display: flex; flex-grow: 1; height: calc(100vh - 50px); }
 
-/* Sidebar with World & Files */
 #sidebar {
   width: 220px;
   background: #222;
@@ -48,12 +36,7 @@ button:hover {
   padding: 10px;
 }
 
-#worldOverview, #files {
-  flex: 1;
-  overflow-y: auto;
-  padding: 5px;
-  border-bottom: 1px solid #444;
-}
+#worldOverview, #files { flex: 1; overflow-y: auto; padding: 5px; border-bottom: 1px solid #444; }
 
 #worldItems div, #fileList div {
   padding: 5px;
@@ -63,17 +46,10 @@ button:hover {
   margin: 2px 0;
 }
 
-#worldItems div:hover, #fileList div:hover {
-  background: #555;
-}
+#worldItems div:hover, #fileList div:hover { background: #555; }
 
-#view {
-  flex-grow: 1;
-  background: #333;
-  border: none;
-}
+#view { flex-grow: 1; background: #333; border: none; }
 
-/* Inspector Section */
 #inspector {
   width: 250px;
   background: #222;
@@ -93,12 +69,8 @@ input {
   box-sizing: border-box;
 }
 
-input:focus {
-  outline: none;
-  border: 1px solid #2979ff;
-}
+input:focus { outline: none; border: 1px solid #2979ff; }
 
-/* Footer Section */
 #footer {
   position: fixed;
   bottom: 0;
@@ -110,8 +82,7 @@ input:focus {
   text-align: right;
 }
 
-/* Support Modal Styling */
-#supportModal {
+#addModal, #supportModal {
   display: none;
   position: fixed;
   top: 50%;
@@ -125,31 +96,5 @@ input:focus {
   text-align: center;
 }
 
-#supportModal h3 {
-  margin-bottom: 15px;
-}
-
-#supportModal button {
-  background: red;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-#supportModal button:hover {
-  background: darkred;
-}
-
-/* Modal Overlay Styling */
-#supportModal::after {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: -1;
-}
+#supportModal button { background: red; color: white; }
+#supportModal button:hover { background: darkred; }

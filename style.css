@@ -1,19 +1,27 @@
-body { margin:0; font-family:sans-serif; background:#111; color:white; }
-#top { display:flex; gap:10px; padding:10px; background:#222; align-items:center; }
-button { background:#2979ff; color:white; border:none; padding:6px 12px; border-radius:5px; cursor:pointer; }
-#main { display:flex; height:calc(100vh - 50px); }
-#sidebar { width:220px; background:#222; display:flex; flex-direction:column; }
-#worldOverview,#files { flex:1; overflow:auto; padding:5px; border-bottom:1px solid #444; }
-#worldItems div,#fileList div { padding:3px; cursor:pointer; border-radius:3px; margin:2px 0; background:#333; }
-#view { flex:1; border:none; background:#333; }
-/* Adding styling for the modal and support button */
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body */
+body {
+  font-family: sans-serif;
+  background: #111;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Top Bar */
 #topBar {
   display: flex;
-  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
   padding: 10px;
   background: #222;
-  align-items: center;
-  position: relative;
 }
 
 button {
@@ -23,13 +31,99 @@ button {
   padding: 6px 12px;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s ease;
 }
 
+button:hover {
+  background: #1e5ab5;
+}
+
+/* Support Button (on top right) */
 #supportBtn {
   position: absolute;
-  right: 10px;  /* Positioning support button at the top-right */
+  right: 10px;
+  top: 10px;
 }
 
+/* Main Layout */
+#main {
+  display: flex;
+  flex-grow: 1;
+  height: calc(100vh - 60px); /* Subtracting the top bar height */
+}
+
+/* Sidebar */
+#sidebar {
+  width: 250px;
+  background: #222;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+#worldOverview, #files {
+  flex: 1;
+  margin-bottom: 20px;
+}
+
+#worldItems div, #fileList div {
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 5px 0;
+  background: #333;
+  display: flex;
+  justify-content: space-between;
+}
+
+#worldItems div:hover, #fileList div:hover {
+  background: #444;
+}
+
+#worldItems button {
+  font-size: 12px;
+}
+
+/* Preview Section (iframe) */
+#preview {
+  flex-grow: 1;
+  background: #333;
+  padding: 10px;
+  overflow: hidden;
+  border-left: 2px solid #444;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Editor Section */
+#editorCode {
+  flex: 1;
+  background: #222;
+  padding: 10px;
+}
+
+textarea#editor {
+  width: 100%;
+  height: 100%;
+  background: #111;
+  color: white;
+  font-family: monospace;
+  font-size: 14px;
+  border: none;
+  padding: 10px;
+  box-sizing: border-box;
+  resize: none;
+  line-height: 1.5;
+  border-radius: 5px;
+}
+
+/* Footer Section */
 #footer {
   background: #222;
   color: #aaa;
@@ -38,8 +132,9 @@ button {
   text-align: right;
 }
 
+/* Modal for Support Ad */
 #adModal {
-  display: none;  /* Initially hidden */
+  display: none; /* Initially hidden */
   position: fixed;
   top: 50%;
   left: 50%;
@@ -49,26 +144,115 @@ button {
   padding: 20px;
   border-radius: 10px;
   z-index: 1000;
-}
-
-.modal-content {
+  width: 300px;
   text-align: center;
 }
 
-button {
-  margin-top: 20px;
+.modal-content h2 {
+  margin-bottom: 20px;
+  font-size: 18px;
 }
-#inspector { width:250px; background:#222; padding:10px; display:flex; flex-direction:column; gap:5px; }
-input { padding:5px; border:none; border-radius:3px; width:100%; box-sizing:border-box; }
-#addModal { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#222; color:white; padding:20px; border-radius:10px; z-index:1000; }
 
-#footer {
+.modal-content p {
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.modal-content button {
+  background: #ff5252;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+.modal-content button:hover {
+  background: #e04e4e;
+}
+
+/* Styling for Add Node Button */
+#addModal {
+  display: none;
   position: fixed;
-  bottom: 0;
-  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background: #222;
-  color: #aaa;
-  padding: 5px 10px;
-  font-size: 12px;
-  text-align: right;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 1000;
+  width: 300px;
+  text-align: center;
+}
+
+#addModal button {
+  background: #2979ff;
+  margin: 10px;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  font-size: 14px;
+}
+
+#addModal button:hover {
+  background: #1e5ab5;
+}
+
+/* Styling for the top bar buttons */
+button {
+  background-color: #2979ff;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #1c63d1;
+}
+
+/* Styling for World & File items */
+#worldOverview h4, #files h4 {
+  color: #ccc;
+  margin-bottom: 10px;
+}
+
+#worldItems, #fileList {
+  margin-top: 10px;
+}
+
+#worldItems div, #fileList div {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  border-radius: 5px;
+  margin: 5px 0;
+  background: #333;
+  cursor: pointer;
+}
+
+#worldItems div:hover, #fileList div:hover {
+  background: #444;
+}
+
+/* Responsive Design for Smaller Screens */
+@media screen and (max-width: 768px) {
+  #main {
+    flex-direction: column;
+  }
+
+  #sidebar {
+    width: 100%;
+    padding: 5px;
+  }
+
+  #preview {
+    width: 100%;
+  }
 }

@@ -1,0 +1,11 @@
+body { margin:0; font-family:sans-serif; background:#111; color:white; }
+#top { display:flex; gap:10px; padding:10px; background:#222; align-items:center; }
+button { background:#2979ff; color:white; border:none; padding:6px 12px; border-radius:5px; cursor:pointer; }
+#main { display:flex; height:calc(100vh - 50px); }
+#sidebar { width:220px; background:#222; display:flex; flex-direction:column; }
+#worldOverview,#files { flex:1; overflow:auto; padding:5px; border-bottom:1px solid #444; }
+#worldItems div,#fileList div { padding:3px; cursor:pointer; border-radius:3px; margin:2px 0; background:#333; }
+#view { flex:1; border:none; background:#333; }
+#inspector { width:250px; background:#222; padding:10px; display:flex; flex-direction:column; gap:5px; }
+input { padding:5px; border:none; border-radius:3px; width:100%; box-sizing:border-box; }
+#addModal { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#222; color:white; padding:20px; border-radius:10px; z-index:1000; }

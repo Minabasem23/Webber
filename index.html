@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Node Editor 2D</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="top">
+  <button onclick="showAddMenu()">+ Add</button>
+  <button onclick="saveProject()">💾 Save</button>
+  <button onclick="loadProject()">📂 Load</button>
+  <button onclick="undo()">↩ Undo</button>
+  <button onclick="redo()">↪ Redo</button>
+  <button onclick="location.href='Code.html'">Code</button>
+</div>
+
+<div id="main">
+  <div id="sidebar">
+    <div id="worldOverview">
+      <h4>World:</h4>
+      <div id="worldItems"></div>
+    </div>
+    <div id="files">
+      <h4>Project Files:</h4>
+      <div id="fileList"></div>
+    </div>
+  </div>
+
+  <iframe id="view"></iframe>
+
+  <div id="inspector">
+    <h3>Inspector</h3>
+    <input id="name" placeholder="Name">
+    <input id="text" placeholder="Text">
+    <input id="tx" type="number" placeholder="X">
+    <input id="ty" type="number" placeholder="Y">
+    <input id="sx" type="number" step="0.1" placeholder="Scale X" value="1">
+    <input id="sy" type="number" step="0.1" placeholder="Scale Y" value="1">
+    <input id="r" type="number" step="1" placeholder="Rotation" value="0">
+    <input id="c" type="color" placeholder="Color">
+    <input id="fontSize" type="number" placeholder="Font Size" value="16">
+  </div>
+</div>
+
+<div id="addModal">
+  <h3>Add Node</h3>
+  <button onclick="addNode('div')">Box</button>
+  <button onclick="addNode('button')">Button</button>
+  <button onclick="closeAddMenu()">Cancel</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

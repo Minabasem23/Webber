@@ -1,67 +1,48 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Code Editor</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    body { margin:0; font-family:sans-serif; background:#111; color:white; display:flex; flex-direction:column; height:100vh; }
-    #topBar { display:flex; gap:10px; padding:10px; background:#222; }
-    button { background:#2979ff; color:white; border:none; padding:6px 12px; border-radius:5px; cursor:pointer; }
-    #preview { flex:1; border:none; background:#333; }
-    #editorContainer { flex:1; display:flex; flex-direction:column; }
-    #editor { flex:1; width:100%; background:#111; color:white; border:none; font-family:monospace; padding:10px; box-sizing:border-box; resize:none; }
-    #footer { background:#222; color:#aaa; padding:5px 10px; font-size:12px; text-align:right; }
+    body { margin:0; font-family:sans-serif; background:#111; color:white; display: flex; flex-direction: column; height:100vh; }
+    #topBar { display: flex; gap: 10px; padding: 10px; background: #222; }
+    button { background: #2979ff; color:white; border:none; padding:6px 12px; border-radius:5px; cursor:pointer; }
+    #mainCode { display: flex; flex-direction: column; flex-grow: 1; }
+    #previewCode { flex: 1; border-bottom: 2px solid #444; }
+    #editorCode { flex: 1; }
+    #editor { width: 100%; height: 100%; background: #111; color: white; border: none; font-family: monospace; padding: 10px; box-sizing: border-box; }
+    #footer { background: #222; color: #aaa; padding: 5px 10px; font-size: 12px; text-align: right; }
   </style>
 </head>
 <body>
 
+<!-- Top Bar -->
 <div id="topBar">
   <button onclick="copyCode()">Copy Code</button>
   <button onclick="location.href='index.html'">Home</button>
 </div>
 
-<iframe id="preview"></iframe>
+<!-- Main Section -->
+<div id="mainCode">
+  <!-- Preview Section (Iframe) -->
+  <div id="previewCode">
+    <iframe id="previewFrame"></iframe>
+  </div>
 
-<div id="editorContainer">
-  <textarea id="editor" placeholder="Your code here..."></textarea>
+  <!-- Editor Section (Text Area) -->
+  <div id="editorCode">
+    <textarea id="editor"></textarea>
+  </div>
 </div>
 
-<div id="footer">Saved Time: -- @minabasem</div>
+<!-- Footer Section -->
+<div id="footer">
+  Saved Time: -- @minabasem
+</div>
 
-<script>
-  const editor = document.getElementById("editor");
-  const preview = document.getElementById("preview");
-  const footer = document.getElementById("footer");
-
-  // Load saved code
-  editor.value = localStorage.getItem("code") || "";
-
-  // Update preview
-  function updatePreview() {
-    preview.srcdoc = editor.value;
-  }
-
-  // Auto Save every 5s
-  function autoSave() {
-    localStorage.setItem("code", editor.value);
-    updatePreview();
-    const now = new Date();
-    footer.innerText = `Saved Time: ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()} @minabasem`;
-  }
-  setInterval(autoSave,5000);
-  updatePreview();
-
-  // Copy code button
-  function copyCode() {
-    editor.select();
-    document.execCommand('copy');
-    alert("Code copied!");
-  }
-
-  // Update preview live
-  editor.addEventListener("input", updatePreview);
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>

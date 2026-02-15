@@ -48,7 +48,14 @@ function selectNode(id) {
   document.getElementById("c").value=node.color;
   document.getElementById("fontSize").value=node.fontSize;
 }
+function saveProject() {
+  localStorage.setItem("project", JSON.stringify(project));
+  updateFooterTime(); // فقط تحديث الوقت في Footer
+}
 
+// Auto Save every 5s
+setInterval(saveProject, 5000);
+updateFooterTime();
 // ===== Inspector =====
 ["name","text","tx","ty","sx","sy","r","c","fontSize"].forEach(id=>{
   document.getElementById(id).addEventListener("input", e=>{

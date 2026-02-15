@@ -6,6 +6,58 @@ button { background:#2979ff; color:white; border:none; padding:6px 12px; border-
 #worldOverview,#files { flex:1; overflow:auto; padding:5px; border-bottom:1px solid #444; }
 #worldItems div,#fileList div { padding:3px; cursor:pointer; border-radius:3px; margin:2px 0; background:#333; }
 #view { flex:1; border:none; background:#333; }
+/* Adding styling for the modal and support button */
+#topBar {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  background: #222;
+  align-items: center;
+  position: relative;
+}
+
+button {
+  background: #2979ff;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#supportBtn {
+  position: absolute;
+  right: 10px;  /* Positioning support button at the top-right */
+}
+
+#footer {
+  background: #222;
+  color: #aaa;
+  padding: 5px 10px;
+  font-size: 12px;
+  text-align: right;
+}
+
+#adModal {
+  display: none;  /* Initially hidden */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #333;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 1000;
+}
+
+.modal-content {
+  text-align: center;
+}
+
+button {
+  margin-top: 20px;
+}
 #inspector { width:250px; background:#222; padding:10px; display:flex; flex-direction:column; gap:5px; }
 input { padding:5px; border:none; border-radius:3px; width:100%; box-sizing:border-box; }
 #addModal { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#222; color:white; padding:20px; border-radius:10px; z-index:1000; }

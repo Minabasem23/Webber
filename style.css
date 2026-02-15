@@ -22,6 +22,7 @@ body {
   align-items: center;
   padding: 10px;
   background: #222;
+  position: relative;
 }
 
 button {
@@ -101,26 +102,22 @@ iframe {
   border: none;
 }
 
-/* Editor Section */
-#editorCode {
-  flex: 1;
+/* Inspector Section */
+#inspector {
+  width: 250px;
   background: #222;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
-textarea#editor {
-  width: 100%;
-  height: 100%;
-  background: #111;
-  color: white;
-  font-family: monospace;
-  font-size: 14px;
+input {
+  padding: 5px;
   border: none;
-  padding: 10px;
+  border-radius: 3px;
+  width: 100%;
   box-sizing: border-box;
-  resize: none;
-  line-height: 1.5;
-  border-radius: 5px;
 }
 
 /* Footer Section */
@@ -171,74 +168,6 @@ textarea#editor {
 
 .modal-content button:hover {
   background: #e04e4e;
-}
-
-/* Styling for Add Node Button */
-#addModal {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #222;
-  color: white;
-  padding: 20px;
-  border-radius: 10px;
-  z-index: 1000;
-  width: 300px;
-  text-align: center;
-}
-
-#addModal button {
-  background: #2979ff;
-  margin: 10px;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  border: none;
-  font-size: 14px;
-}
-
-#addModal button:hover {
-  background: #1e5ab5;
-}
-
-/* Styling for the top bar buttons */
-button {
-  background-color: #2979ff;
-  color: white;
-  padding: 8px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #1c63d1;
-}
-
-/* Styling for World & File items */
-#worldOverview h4, #files h4 {
-  color: #ccc;
-  margin-bottom: 10px;
-}
-
-#worldItems, #fileList {
-  margin-top: 10px;
-}
-
-#worldItems div, #fileList div {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px;
-  border-radius: 5px;
-  margin: 5px 0;
-  background: #333;
-  cursor: pointer;
-}
-
-#worldItems div:hover, #fileList div:hover {
-  background: #444;
 }
 
 /* Responsive Design for Smaller Screens */

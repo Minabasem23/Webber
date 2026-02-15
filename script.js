@@ -6,7 +6,8 @@ let redoStack = [];
 // تحديث الـ Preview و الـ Text Area الخاص بالكود
 function updatePreviewAndEditor() {
   let html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Preview</title></head><body>`;
-  
+
+  // إضافة العقد إلى الـ HTML
   project.nodes.forEach(n => {
     if (n.type === "div") {
       html += `<div id="node_${n.id}" style="position:absolute;left:${n.x}px;top:${n.y}px;width:${n.sx * 100}px;height:${n.sy * 100}px;background:${n.color}"></div>`;
@@ -20,7 +21,7 @@ function updatePreviewAndEditor() {
 
   // تحديث الـ Preview iframe
   const previewFrame = document.getElementById("previewFrame");
-  previewFrame.srcdoc = html;
+  previewFrame.srcdoc = html; // التحديث مع HTML
 
   // تحديث الـ Text Area (محرر الكود)
   const editor = document.getElementById("editor");
@@ -40,13 +41,13 @@ function addNode(type) {
     id: Date.now(), // كل Node سيكون له id فريد
     type,
     name: type,
-    text: type=="button"?"Button":"",
+    text: type === "button" ? "Button" : "",
     x: 50, y: 50,
     sx: 1, sy: 1, r: 0,
     color: "#ff5252",
     fontSize: 16
   };
-  
+
   project.nodes.push(node);  // إضافة العقدة الجديدة إلى المشروع
   undoStack.push(JSON.stringify(project));  // إضافة نسخة للمشروع للاحتفاظ به في حالة التراجع
   updateWorld();  // تحديث قائمة العناصر

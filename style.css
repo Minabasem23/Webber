@@ -1,187 +1,100 @@
-/* Basic Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Body */
-body {
-  font-family: sans-serif;
-  background: #111;
-  color: white;
+body { 
+  margin: 0; 
+  font-family: sans-serif; 
+  background: #111; 
+  color: white; 
   display: flex;
   flex-direction: column;
   height: 100vh;
 }
 
-/* Top Bar */
-#topBar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  background: #222;
-  position: relative;
+#topBar { 
+  display: flex; 
+  gap: 10px; 
+  padding: 10px; 
+  background: #222; 
+  align-items: center; 
 }
 
-button {
-  background: #2979ff;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background 0.3s ease;
+button { 
+  background: #2979ff; 
+  color: white; 
+  border: none; 
+  padding: 6px 12px; 
+  border-radius: 5px; 
+  cursor: pointer; 
 }
 
-button:hover {
-  background: #1e5ab5;
+#main { 
+  display: flex; 
+  height: calc(100vh - 50px); 
 }
 
-/* Support Button (on top right) */
-#supportBtn {
-  position: absolute;
-  right: 10px;
-  top: 10px;
+#sidebar { 
+  width: 220px; 
+  background: #222; 
+  display: flex; 
+  flex-direction: column; 
 }
 
-/* Main Layout */
-#main {
-  display: flex;
-  flex-grow: 1;
-  height: calc(100vh - 60px); /* Subtracting the top bar height */
+#worldOverview, #files { 
+  flex: 1; 
+  overflow: auto; 
+  padding: 5px; 
+  border-bottom: 1px solid #444; 
 }
 
-/* Sidebar */
-#sidebar {
-  width: 250px;
-  background: #222;
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  overflow-y: auto;
+#worldItems div, #fileList div { 
+  padding: 3px; 
+  cursor: pointer; 
+  border-radius: 3px; 
+  margin: 2px 0; 
+  background: #333; 
 }
 
-#worldOverview, #files {
-  flex: 1;
-  margin-bottom: 20px;
+#view { 
+  flex: 1; 
+  border: none; 
+  background: #333; 
 }
 
-#worldItems div, #fileList div {
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 5px;
-  margin: 5px 0;
-  background: #333;
-  display: flex;
-  justify-content: space-between;
+#inspector { 
+  width: 250px; 
+  background: #222; 
+  padding: 10px; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 5px; 
 }
 
-#worldItems div:hover, #fileList div:hover {
-  background: #444;
+input { 
+  padding: 5px; 
+  border: none; 
+  border-radius: 3px; 
+  width: 100%; 
+  box-sizing: border-box; 
 }
 
-#worldItems button {
-  font-size: 12px;
+#addModal { 
+  display: none; 
+  position: fixed; 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  background: #222; 
+  color: white; 
+  padding: 20px; 
+  border-radius: 10px; 
+  z-index: 1000; 
 }
 
-/* Preview Section (iframe) */
-#preview {
-  flex-grow: 1;
-  background: #333;
-  padding: 10px;
-  overflow: hidden;
-  border-left: 2px solid #444;
-}
-
-iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-
-/* Inspector Section */
-#inspector {
-  width: 250px;
-  background: #222;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-input {
-  padding: 5px;
-  border: none;
-  border-radius: 3px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* Footer Section */
-#footer {
-  background: #222;
-  color: #aaa;
-  padding: 5px 10px;
-  font-size: 12px;
-  text-align: right;
-}
-
-/* Modal for Support Ad */
-#adModal {
-  display: none; /* Initially hidden */
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #333;
-  color: white;
-  padding: 20px;
-  border-radius: 10px;
-  z-index: 1000;
-  width: 300px;
-  text-align: center;
-}
-
-.modal-content h2 {
-  margin-bottom: 20px;
-  font-size: 18px;
-}
-
-.modal-content p {
-  margin-bottom: 20px;
-  font-size: 14px;
-}
-
-.modal-content button {
-  background: #ff5252;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  border: none;
-  font-size: 14px;
-  transition: background 0.3s ease;
-}
-
-.modal-content button:hover {
-  background: #e04e4e;
-}
-
-/* Responsive Design for Smaller Screens */
-@media screen and (max-width: 768px) {
-  #main {
-    flex-direction: column;
-  }
-
-  #sidebar {
-    width: 100%;
-    padding: 5px;
-  }
-
-  #preview {
-    width: 100%;
-  }
+#footer { 
+  position: fixed; 
+  bottom: 0; 
+  width: 100%; 
+  background: #222; 
+  color: #aaa; 
+  padding: 5px 10px; 
+  font-size: 12px; 
+  text-align: right; 
 }

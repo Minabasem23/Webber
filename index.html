@@ -1,100 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Node Editor 2D</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      background: #111;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-    }
-
-    /* Top bar with Support Button */
-    #topBar {
-      display: flex;
-      gap: 10px;
-      padding: 10px;
-      background: #222;
-      justify-content: space-between;
-    }
-
-    button {
-      background: #2979ff;
-      color: white;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    /* Main Section */
-    #main {
-      display: flex;
-      height: calc(100vh - 50px);
-    }
-
-    /* Sidebar with World & Files */
-    #sidebar {
-      width: 220px;
-      background: #222;
-      display: flex;
-      flex-direction: column;
-    }
-
-    #view {
-      flex: 1;
-      border: none;
-      background: #333;
-    }
-
-    /* Footer Section */
-    #footer {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background: #222;
-      color: #aaa;
-      padding: 5px 10px;
-      font-size: 12px;
-      text-align: right;
-    }
-
-    /* Support Modal */
-    #supportModal {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #333;
-      color: white;
-      padding: 20px;
-      border-radius: 10px;
-      z-index: 1000;
-    }
-
-    #supportModal button {
-      background: red;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Node Editor 2D</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <!-- Top Bar -->
 <div id="topBar">
+  <div style="display: flex; gap:10px;">
+    <button onclick="showAddMenu()">+ Add</button>
+    <button onclick="saveProject()">💾 Save</button>
+    <button onclick="loadProject()">📂 Load</button>
+    <button onclick="undo()">↩ Undo</button>
+    <button onclick="redo()">↪ Redo</button>
+    <button onclick="location.href='Code.html'">Code</button>
+  </div>
   <button onclick="showSupportModal()">Support</button>
-  <button onclick="saveProject()">💾 Save</button>
-  <button onclick="loadProject()">📂 Load</button>
-  <button onclick="undo()">↩ Undo</button>
-  <button onclick="redo()">↪ Redo</button>
-  <button onclick="location.href='Code.html'">Code</button>
 </div>
 
 <!-- Main Section -->
@@ -112,11 +36,29 @@
 
   <iframe id="view"></iframe>
 
+  <div id="inspector">
+    <h3>Inspector</h3>
+    <input id="name" placeholder="Name">
+    <input id="text" placeholder="Text">
+    <input id="tx" type="number" placeholder="X">
+    <input id="ty" type="number" placeholder="Y">
+    <input id="sx" type="number" step="0.1" placeholder="Scale X" value="1">
+    <input id="sy" type="number" step="0.1" placeholder="Scale Y" value="1">
+    <input id="r" type="number" step="1" placeholder="Rotation" value="0">
+    <input id="c" type="color" placeholder="Color">
+    <input id="fontSize" type="number" placeholder="Font Size" value="16">
+  </div>
 </div>
 
-<!-- Footer Section -->
-<div id="footer">
-  Saved Time: -- @minabasem
+<!-- Footer -->
+<div id="footer">Saved Time: -- @minabasem</div>
+
+<!-- Add Node Modal -->
+<div id="addModal">
+  <h3>Add Node</h3>
+  <button onclick="addNode('div')">Box</button>
+  <button onclick="addNode('button')">Button</button>
+  <button onclick="closeAddMenu()">Cancel</button>
 </div>
 
 <!-- Support Modal -->

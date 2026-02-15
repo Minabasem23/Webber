@@ -1,100 +1,155 @@
-body { 
-  margin: 0; 
-  font-family: sans-serif; 
-  background: #111; 
-  color: white; 
+/* General body styles */
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: #111;
+  color: white;
   display: flex;
   flex-direction: column;
   height: 100vh;
 }
 
-#topBar { 
-  display: flex; 
-  gap: 10px; 
-  padding: 10px; 
-  background: #222; 
-  align-items: center; 
+/* Top bar with Support Button */
+#topBar {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background: #222;
+  color: white;
 }
 
-button { 
-  background: #2979ff; 
-  color: white; 
-  border: none; 
-  padding: 6px 12px; 
-  border-radius: 5px; 
-  cursor: pointer; 
+button {
+  background: #2979ff;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
 }
 
-#main { 
-  display: flex; 
-  height: calc(100vh - 50px); 
+button:hover {
+  background: #1e6cd2;
 }
 
-#sidebar { 
-  width: 220px; 
-  background: #222; 
-  display: flex; 
-  flex-direction: column; 
+/* Main Section (Flexbox Layout) */
+#main {
+  display: flex;
+  flex-grow: 1;
+  height: calc(100vh - 50px); /* Adjusted height to leave space for the top bar */
 }
 
-#worldOverview, #files { 
-  flex: 1; 
-  overflow: auto; 
-  padding: 5px; 
-  border-bottom: 1px solid #444; 
+/* Sidebar with World & Files */
+#sidebar {
+  width: 220px;
+  background: #222;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
 }
 
-#worldItems div, #fileList div { 
-  padding: 3px; 
-  cursor: pointer; 
-  border-radius: 3px; 
-  margin: 2px 0; 
-  background: #333; 
+#worldOverview, #files {
+  flex: 1;
+  overflow-y: auto;
+  padding: 5px;
+  border-bottom: 1px solid #444;
 }
 
-#view { 
-  flex: 1; 
-  border: none; 
-  background: #333; 
+#worldItems div, #fileList div {
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 3px;
+  background: #333;
+  margin: 2px 0;
 }
 
-#inspector { 
-  width: 250px; 
-  background: #222; 
-  padding: 10px; 
-  display: flex; 
-  flex-direction: column; 
-  gap: 5px; 
+#worldItems div:hover, #fileList div:hover {
+  background: #555;
 }
 
-input { 
-  padding: 5px; 
-  border: none; 
-  border-radius: 3px; 
-  width: 100%; 
-  box-sizing: border-box; 
+#view {
+  flex-grow: 1;
+  background: #333;
+  border: none;
 }
 
-#addModal { 
-  display: none; 
-  position: fixed; 
-  top: 50%; 
-  left: 50%; 
-  transform: translate(-50%, -50%); 
-  background: #222; 
-  color: white; 
-  padding: 20px; 
-  border-radius: 10px; 
-  z-index: 1000; 
+/* Inspector Section */
+#inspector {
+  width: 250px;
+  background: #222;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-#footer { 
-  position: fixed; 
-  bottom: 0; 
-  width: 100%; 
-  background: #222; 
-  color: #aaa; 
-  padding: 5px 10px; 
-  font-size: 12px; 
-  text-align: right; 
+input {
+  padding: 5px;
+  border: none;
+  border-radius: 3px;
+  background: #333;
+  color: white;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input:focus {
+  outline: none;
+  border: 1px solid #2979ff;
+}
+
+/* Footer Section */
+#footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #222;
+  color: #aaa;
+  padding: 5px 10px;
+  font-size: 12px;
+  text-align: right;
+}
+
+/* Support Modal Styling */
+#supportModal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #333;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 1000;
+  text-align: center;
+}
+
+#supportModal h3 {
+  margin-bottom: 15px;
+}
+
+#supportModal button {
+  background: red;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#supportModal button:hover {
+  background: darkred;
+}
+
+/* Modal Overlay Styling */
+#supportModal::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: -1;
 }

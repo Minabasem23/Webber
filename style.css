@@ -9,3 +9,14 @@ button { background:#2979ff; color:white; border:none; padding:6px 12px; border-
 #inspector { width:250px; background:#222; padding:10px; display:flex; flex-direction:column; gap:5px; }
 input { padding:5px; border:none; border-radius:3px; width:100%; box-sizing:border-box; }
 #addModal { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#222; color:white; padding:20px; border-radius:10px; z-index:1000; }
+
+#footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #222;
+  color: #aaa;
+  padding: 5px 10px;
+  font-size: 12px;
+  text-align: right;
+}

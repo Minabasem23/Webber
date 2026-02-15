@@ -3,6 +3,7 @@ let undoStack = [];
 let redoStack = [];
 
 const iframe = document.getElementById("view");
+const footer = document.getElementById("footer");
 
 // ===== Nodes =====
 function addNode(type) {
@@ -51,10 +52,10 @@ function selectNode(id) {
 // ===== Inspector =====
 ["name","text","tx","ty","sx","sy","r","c","fontSize"].forEach(id=>{
   document.getElementById(id).addEventListener("input", e=>{
-    const selectedId = project.nodes.find(n=>n.id===project.nodes.find(n2=>n2.id===n.id)?.id)?.id;
-    const node = project.nodes.find(n=>n.id===selectedId);
+    const node = project.nodes.find(n=>n.id===project.nodes.find(n2=>n2.id===n.id)?.id);
     if(!node) return;
-    node[id==="tx"||id==="ty"||id==="sx"||id==="sy"||id==="r"||id==="fontSize"?id:id]=e.target.value;
+    if(["tx","ty","sx","sy","r","fontSize"].includes(id)) node[id]=Number(e.target.value);
+    else node[id]=e.target.value;
     updatePreview();
   });
 });
@@ -75,7 +76,7 @@ function updatePreview() {
 // ===== Save / Load =====
 function saveProject() {
   localStorage.setItem("project", JSON.stringify(project));
-  alert("✔ Project saved locally");
+  updateFooterTime(); // حفظ صامت فقط
 }
 
 function loadProject() {
@@ -104,8 +105,15 @@ function redo(){
 function showAddMenu(){ document.getElementById("addModal").style.display="block"; }
 function closeAddMenu(){ document.getElementById("addModal").style.display="none"; }
 
+// ===== Footer Time =====
+function updateFooterTime(){
+  const now = new Date();
+  footer.innerText = `Saved Time: ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()} @minabasem`;
+}
+
 // ===== Auto Save every 5s =====
 setInterval(saveProject,5000);
+updateFooterTime();
 
 // ===== Initial =====
 updateWorld();

@@ -1,7 +1,17 @@
+// Project Data
 let project = JSON.parse(localStorage.getItem("project") || '{"nodes":[],"files":{}}');
 let undoStack = [];
 let redoStack = [];
 
+// Direct Links for Support
+const DIRECT_LINKS = [
+  "https://omg10.com/4/10591369",
+  "https://omg10.com/4/10591326"
+];
+
+// ------------------ Node Editor Functions ------------------
+
+// Update preview iframe and editor
 function updatePreviewAndEditor() {
   let html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Preview</title></head><body>`;
   project.nodes.forEach(n => {
@@ -12,11 +22,13 @@ function updatePreviewAndEditor() {
   document.getElementById("view").srcdoc = html;
 }
 
+// Add Node Modal
 function showAddMenu(){ document.getElementById("addModal").style.display="block"; }
 function closeAddMenu(){ document.getElementById("addModal").style.display="none"; }
 
+// Add Node
 function addNode(type){
-  const node={id:Date.now(), type, name:type, text:type==="button"?"Button":"", x:50, y:50, sx:1, sy:1, r:0, color:"#ff5252", fontSize:16};
+  const node = {id:Date.now(), type, name:type, text:type==="button"?"Button":"", x:50, y:50, sx:1, sy:1, r:0, color:"#ff5252", fontSize:16};
   project.nodes.push(node);
   undoStack.push(JSON.stringify(project));
   updateWorld();
@@ -24,6 +36,7 @@ function addNode(type){
   closeAddMenu();
 }
 
+// Update World Sidebar
 function updateWorld(){
   const worldItems=document.getElementById("worldItems");
   worldItems.innerHTML="";
@@ -39,6 +52,7 @@ function updateWorld(){
   });
 }
 
+// Select Node
 function selectNode(id){
   const n=project.nodes.find(n=>n.id===id);
   if(!n) return;
@@ -53,6 +67,7 @@ function selectNode(id){
   document.getElementById("fontSize").value=n.fontSize;
 }
 
+// Delete Node
 function deleteNode(id){
   project.nodes=project.nodes.filter(n=>n.id!==id);
   updateWorld();
@@ -60,25 +75,69 @@ function deleteNode(id){
   undoStack.push(JSON.stringify(project));
 }
 
-updatePreviewAndEditor();
-updateWorld();
-
+// Auto Save every 5s
 setInterval(saveProject,5000);
 
+// Save Project
 function saveProject(){
   localStorage.setItem("project", JSON.stringify(project));
   updateFooterTime();
 }
 
+// Update Footer Time
 function updateFooterTime(){
   const now=new Date();
   document.getElementById("footer").innerText=`Saved Time: ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()} @minabasem`;
 }
 
-// Support Modal
+// Load Project
+function loadProject(){
+  project = JSON.parse(localStorage.getItem("project") || '{"nodes":[],"files":{}}');
+  updateWorld();
+  updatePreviewAndEditor();
+}
+
+// Undo / Redo
+function undo(){
+  if(undoStack.length>0){
+    redoStack.push(JSON.stringify(project));
+    project=JSON.parse(undoStack.pop());
+    updateWorld();
+    updatePreviewAndEditor();
+  }
+}
+function redo(){
+  if(redoStack.length>0){
+    undoStack.push(JSON.stringify(project));
+    project=JSON.parse(redoStack.pop());
+    updateWorld();
+    updatePreviewAndEditor();
+  }
+}
+
+// ------------------ Support Functions ------------------
+
+// Show Support Modal + open Direct Link for 30s
 function showSupportModal(){
   const modal=document.getElementById("supportModal");
   modal.style.display="block";
-  setTimeout(()=>closeSupportModal(),30000);
+
+  // Pick a random Direct Link
+  const link = DIRECT_LINKS[Math.floor(Math.random()*DIRECT_LINKS.length)];
+  const win = window.open(link,"_blank");
+
+  // Close after 30s
+  setTimeout(()=>{
+    closeSupportModal();
+    if(win && !win.closed) win.close();
+    window.focus();
+  }, 30000);
 }
-function closeSupportModal(){ document.getElementById("supportModal").style.display="none"; }
+
+function closeSupportModal(){
+  document.getElementById("supportModal").style.display="none";
+}
+
+// ------------------ Initial Render ------------------
+updatePreviewAndEditor();
+updateWorld();

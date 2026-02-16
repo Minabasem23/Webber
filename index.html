@@ -76,5 +76,12 @@
 <!-- JS -->
 <script src="script.js"></script>
 <script src="https://3nbf4.com/act/files/service-worker.min.js?r=sw"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js')
+    .then(() => console.log('SW registered'))
+    .catch(err => console.error('SW error', err));
+}
+</script>
 </body>
 </html>

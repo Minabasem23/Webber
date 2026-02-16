@@ -5,11 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Node Editor 2D</title>
 
-<!-- Monetag Verification -->
-<meta name="monetag" content="dcf37ec4c84dbd52c889419ea2038b84">
-
 <!-- CSS -->
 <link rel="stylesheet" href="style.css">
+<style>
+body { margin:0; font-family:sans-serif; background:#111; color:white; }
+#topBar { display:flex; justify-content:space-between; padding:10px; background:#222; align-items:center; }
+#topBar button { background:#2979ff; color:white; border:none; padding:6px 12px; border-radius:5px; cursor:pointer; }
+#main { display:flex; height:calc(100vh - 50px); }
+#sidebar { width:220px; background:#222; display:flex; flex-direction:column; }
+#worldOverview,#files { flex:1; overflow:auto; padding:5px; border-bottom:1px solid #444; }
+#worldItems div,#fileList div { padding:3px; cursor:pointer; border-radius:3px; margin:2px 0; background:#333; }
+#view { flex:1; border:none; background:#333; }
+#inspector { width:250px; background:#222; padding:10px; display:flex; flex-direction:column; gap:5px; }
+input { padding:5px; border:none; border-radius:3px; width:100%; box-sizing:border-box; }
+#addModal,#supportModal { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#222; color:white; padding:20px; border-radius:10px; z-index:1000; }
+#footer { height:30px; background:#222; display:flex; align-items:center; justify-content:center; font-size:14px; }
+</style>
 </head>
 <body>
 
@@ -23,7 +34,7 @@
     <button onclick="redo()">↪ Redo</button>
     <button onclick="location.href='Code.html'">Code</button>
   </div>
-  <button onclick="showSupportModal()">Support</button>
+  <button onclick="showSupportModal()">❤️ Support</button>
 </div>
 
 <!-- Main Section -->
@@ -75,13 +86,5 @@
 
 <!-- JS -->
 <script src="script.js"></script>
-<script src="https://3nbf4.com/act/files/service-worker.min.js?r=sw"></script>
-<script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js')
-    .then(() => console.log('SW registered'))
-    .catch(err => console.error('SW error', err));
-}
-</script>
 </body>
 </html>

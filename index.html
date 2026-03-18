@@ -3,67 +3,110 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Telegram Click Game</title>
+<title>Mini MO Game</title>
 <style>
 body {
+  font-family: Arial;
+  background: linear-gradient(135deg,#6a11cb,#2575fc);
+  color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 100vh;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg,#6a11cb,#2575fc);
-  color: #fff;
+  padding: 20px;
+  min-height: 100vh;
 }
-h1 { margin-bottom: 10px; }
-p { font-size: 18px; margin: 5px 0; }
+.container {
+  background: rgba(0,0,0,0.4);
+  padding: 20px;
+  border-radius: 20px;
+  width: 340px;
+  text-align: center;
+}
 button {
-  padding: 15px 30px;
-  font-size: 20px;
-  margin-top: 20px;
-  border: none;
-  border-radius: 12px;
-  background: #ffd700;
-  color: #222;
-  cursor: pointer;
-  font-weight: bold;
+  padding: 10px 20px;
+  margin: 10px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  background:#ffd700;
+  font-weight:bold;
 }
-button:hover { background: #ffec50; }
+button:hover {
+  background:#ffee55;
+}
+#highScore {
+  margin-top: 15px;
+  font-weight:bold;
+}
 </style>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.30.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.30.0/firebase-database-compat.js"></script>
+
 </head>
 <body>
-
-<h1>Click Game</h1>
-<p>Score: <span id="score">0</span></p>
-<button id="clickBtn">Click me!</button>
-<p id="status"></p>
+<div class="container">
+  <h2>Mini MO Game</h2>
+  <p>Your Score: <span id="score">0</span></p>
+  <button id="increaseBtn">+1 Point</button>
+  <div id="highScore">High Score: 0 (—)</div>
+</div>
 
 <script>
-// ✅ Telegram WebApp ready
-if(window.Telegram && Telegram.WebApp){
-  Telegram.WebApp.ready();
+// ===== Firebase config =====
+const firebaseConfig = {
+  apiKey: "YOUR_FIREBASE_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  databaseURL: "https://YOUR_PROJECT.firebaseio.com",
+  projectId: "YOUR_PROJECT",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// ===== Variables =====
+let score = 0;
+let userId = "guest_" + Math.floor(Math.random()*1000000);
+
+// Telegram support
+if(window.Telegram?.WebApp?.initDataUnsafe?.user?.id){
+  userId = "tg_" + window.Telegram.WebApp.initDataUnsafe.user.id;
 }
 
-// ==== Variables ====
-let score = 0;
-const token = "8729434477:AAFp0AKnet_TVtckNfSMjIT6Kt0eFPGBFr0"; // توكن تجريبي
-const btn = document.getElementById("clickBtn");
+// ===== Update score =====
 const scoreEl = document.getElementById("score");
-const statusEl = document.getElementById("status");
+const highEl = document.getElementById("highScore");
 
-// ==== Click Handler ====
-btn.onclick = () => {
-    score++;
-    scoreEl.textContent = score;
+document.getElementById("increaseBtn").onclick = async () => {
+  score++;
+  scoreEl.textContent = score;
 
-    // إرسال كل 10 نقاط
-    if(score % 10 === 0){
-        let userId = 123456789; // ضع هنا معرف تجريبي أو احصل منه في Telegram WebApp
-        fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${userId}&text=Your Score: ${score}`)
-          .then(res => statusEl.textContent = "✅ Score sent!")
-          .catch(err => statusEl.textContent = "❌ Failed to send score");
-    }
-};
+  // Save score to Firebase
+  await db.ref('scores/' + userId).set({score: score});
+
+  // Update high score
+  updateHighScore();
+}
+
+// ===== Get high score =====
+async function updateHighScore(){
+  const snapshot = await db.ref('scores').orderByChild('score').limitToLast(1).get();
+  if(snapshot.exists()){
+    let highScore = 0;
+    let owner = "—";
+    snapshot.forEach(snap=>{
+      highScore = snap.val().score;
+      owner = snap.key;
+    });
+    highEl.textContent = `High Score: ${highScore} (${owner})`;
+  }
+}
+
+// Load initial high score
+updateHighScore();
 </script>
 </body>
 </html>
